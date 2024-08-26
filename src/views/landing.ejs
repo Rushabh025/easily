@@ -1,4 +1,4 @@
-<%if(errorMessage) {%>
+<% if(errorMessage) {%>
     <div class="alert alert-danger alert-dismissible fade show" role="alert">
       <%=errorMessage%>
       <button
@@ -8,7 +8,8 @@
         aria-label="Close"
       ></button>
     </div>
-    <%}%> <%if(!errorMessage && success) {%>
+    <% } %> 
+    <% if(!errorMessage && success) {%>
     <div class="alert alert-success alert-dismissible fade show" role="alert">
       User Registered successfully!
       <button
@@ -18,11 +19,12 @@
         aria-label="Close"
       ></button>
     </div>
-    <%}%> <%if(locals.lastVisit) {%>
+    <% } %> 
+    <% if(locals.lastVisit) { %>
     <div class="alert alert-primary" role="alert">
       You last visit was on : <%=locals.lastVisit%>
     </div>
-    <%}%>
+    <% } %>
     <div class="front-page-container">
       <div class="front-page-text-container">
         <h3 class="landing-title">
