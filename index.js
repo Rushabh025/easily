@@ -1,11 +1,11 @@
 import express from 'express';
-import expressEjsLayouts from 'express-ejs-layouts';
 import path from 'path';
+import expressEjsLayouts from 'express-ejs-layouts';
 import session from 'express-session';
-import JobsController from './src/controllers/jobs.controller.js';
+import authRoutes from './src/routes/auth.routes.js';
+import jobsRoutes from './src/routes/jobs.routes.js';
 
 const app = express();
-const jobsController = new JobsController();
 
 // tell our applicaton to use expree ejs layouts
 app.use(expressEjsLayouts);
@@ -30,7 +30,9 @@ app.get('/', (req, res) => {
     res.render('landing', { errorMessage, success });
 });
 
-app.get('/jobs', jobsController.getJobs);
+// Routes
+app.use('/auth', authRoutes); // Auth-related routes
+app.use('/jobs', jobsRoutes); // Job-related routes
 
 
 export default app;
