@@ -9,7 +9,7 @@ export default class ApplicantModel{
     }
 
     static numberOfApplicants(){
-        return applicants.length;;
+        return applicants.length;
     }
 
 }

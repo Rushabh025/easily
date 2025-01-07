@@ -2,13 +2,15 @@ import express from 'express';
 import path from 'path';
 import expressEjsLayouts from 'express-ejs-layouts';
 import session from 'express-session';
-import authRoutes from './src/routes/auth.routes.js';
+import AuthController from './src/controllers/auth.controller.js';
 import jobsRoutes from './src/routes/jobs.routes.js';
 
 const app = express();
 
-// tell our applicaton to use expree ejs layouts
+// Middleware
 app.use(expressEjsLayouts);
+app.use(express.json()); // Parse JSON payloads
+app.use(express.urlencoded({ extended: true })); // Parse form data
 
 app.use(session({
     secret : "12345",
@@ -30,9 +32,14 @@ app.get('/', (req, res) => {
     res.render('landing', { errorMessage, success });
 });
 
-// Routes
-app.use('/auth', authRoutes); // Auth-related routes
-app.use('/jobs', jobsRoutes); // Job-related routes
+// Auth Routes
+const authController = new AuthController();
 
+app.post('/register', authController.register); // Register a new recruiter account
+app.post('/login', authController.login); // Log in as a recruiter
+app.post('/logout', authController.logout); // Log out the currently logged-in recruiter
+
+// Job-related routes
+app.use('/jobs', jobsRoutes);
 
 export default app;

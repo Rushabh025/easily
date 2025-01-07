@@ -24,7 +24,7 @@ class JobsController {
     var id = req.params.id;
     var job = JobModel.getJob(id);
     var applicants = ApplicantModel.numberOfApplicants();
-    res.render('job-details', {job, applicants});
+    res.render('job-details', { job, applicants });
   }
 
   updateJobById(req, res, next){
