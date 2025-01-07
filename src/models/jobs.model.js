@@ -17,6 +17,11 @@ export default class JobModel {
         return jobs;
     }
 
+    static getJob(id){
+        var job = jobs.find(job => job.id === parseInt(id,10));
+        return job;
+    }
+
     static add(jobObj) {
         let newJob = new JobModel(
             jobs.length + 1,
@@ -24,6 +29,7 @@ export default class JobModel {
             jobObj.companyName,
             jobObj.jobCategory,
             jobObj.jobDesignation,
+            // jobObj.jobLocation,
             jobObj.salary,
             jobObj.applyby,
             jobObj.skillsReq,
@@ -37,7 +43,7 @@ export default class JobModel {
 
 var jobs = [
     new JobModel(
-        1, "Tech Corp", 'Software Development', 'Software Development', 'Mumbai', '350000',
+        1, "Tech Corp", 'Software Development', 'Software Developer', 'Mumbai', '350000',
         '2024-09-30',
         ['JavaScript', 'Node.js', 'React'],
         2,

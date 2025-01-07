@@ -1,7 +1,8 @@
 import JobModel from '../models/jobs.model.js';
+import ApplicantModel from '../models/applicants.model.js';
 
 class JobsController {
-  getJobs(req, res, next) {
+  getAllJobs(req, res, next) {
     var jobs = JobModel.getAll();
     // Initialize lastVisit if it's undefined
     if (!req.session.lastVisit) {
@@ -15,18 +16,32 @@ class JobsController {
     res.render('job-listing', { jobs, lastVisit });
   }
 
-//   getAddProduct(req, res, next) {
-//     res.render('new-product', {
-//       errorMessage: null,
-//     });
-//   }
+  createJob(req, res, next){
 
-//   postAddProduct(req, res, next) {
+  }
+
+  getJobById(req, res, next){
+    var id = req.params.id;
+    var job = JobModel.getJob(id);
+    var applicants = ApplicantModel.numberOfApplicants();
+    res.render('job-details', {job, applicants});
+  }
+
+  updateJobById(req, res, next){
     
-//     ProductModel.add(req.body);
-//     var products = ProductModel.getAll();
-//     res.render('index', { products });
-//   }
+  }
+
+  deleteJobById(req, res, next){
+    
+  }
+
+  renderUpdateForm(req, res, next){
+    
+  }
+
+  applyToJob(req, res, next){
+    
+  }
 }
 
 export default JobsController;
