@@ -1,4 +1,5 @@
 import express from 'express';
+import upload from '../middlewares/resume-upload.middleware.js';
 import JobsController from '../controllers/jobs.controller.js';
 import ApplicantsController from '../controllers/applicants.controller.js';
 
@@ -28,7 +29,7 @@ router.post('/:id/update', jobsController.updateJobById); // Update a job listin
 router.get('/:id/delete', jobsController.deleteJobById); // Render and delete job listing
 
 // Apply to a specific job
-router.post('/apply/:id', jobsController.applyToJob); // Apply to a specific job, uploading a resume
+router.post('/:id', upload.single('resume') , jobsController.applyToJob); // Apply to a specific job, uploading a resume
 
 // Render 404 error page
 router.get('/404', (req, res) => res.render('404')); // Handle 404 errors

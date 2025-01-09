@@ -10,8 +10,8 @@ const app = express();
 
 // Middleware
 app.use(expressEjsLayouts);
-app.use(express.json()); // Parse JSON payloads
 app.use(express.urlencoded({ extended: true })); // Parse form data
+app.use(express.json()); // Parse JSON payloads
 
 app.use(session({
     secret : "12345",
@@ -41,6 +41,7 @@ app.post('/login', authController.login); // Log in as a recruiter
 app.post('/logout', authController.logout); // Log out the currently logged-in recruiter
 
 // Job-related routes
-app.use('/jobs', jobsRoutes);
+app.use('/jobs', checkAuth, jobsRoutes);
+app.use('/apply', jobsRoutes);
 
 export default app;

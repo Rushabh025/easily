@@ -12,9 +12,25 @@ export default class ApplicantModel{
         return applicants.length;
     }
 
+    static addApplicant(applicant){
+        console.log(applicant);
+
+        // Create a new ApplicantModel instance
+        const newApplicant = new ApplicantModel(
+            applicants.length + 1, // Auto-incrementing ID
+            applicant.name,
+            applicant.email,
+            applicant.contact,
+            applicant.resumePath
+        );
+
+        applicants.push(newApplicant);
+        return newApplicant;
+    }
+
 }
 
-var applicants = [
+let applicants = [
     new ApplicantModel(
         1, 
         "John Doe", 

@@ -1,5 +1,5 @@
 <div class="card mt-4">
-    <img src="./images (1).jpeg" class="card-img-top" alt="image-banner"/>
+    <!-- <img src="./images (1).jpeg" class="card-img-top" alt="image-banner"/> -->
     <% if (job) { %>
     <div class="card-body">
       <h2 class="card-title text-center mt-4">
@@ -8,8 +8,10 @@
 
       <div class="mt-4 button-actions">
         <a class="btn btn-warning col-2 text-start"> Actively Recruiting </a>
-        <a class="px-2 btn btn-danger" href="/jobs/<%=job.id%>/update">Edit</a>
-        <button class="px-2 btn btn-danger" onclick="deleteJob('<%=job.id%>')"> Delete </button>
+        <% if(isLoggedIn){ %>
+          <a class="px-2 btn btn-danger" href="/jobs/<%=job.id%>/update">Edit</a>
+          <button class="px-2 btn btn-danger" onclick="deleteJob('<%=job.id%>')"> Delete </button>
+        <% } %>
       </div>
   
       <div class="card-text mt-4">
@@ -17,17 +19,19 @@
         <p><%=job.jobCategory%> <span><%=job.jobDesignation%></span></p>
   
         <div class="job-details">
-          <p><%=job.jobLocation%></p>
-          <p><%=job.salary%></p>
+          <p>Location : <%=job.jobLocation%></p>
+          <p>Salary : <%=job.salary%></p>
           <p>Apply By : <%=job.applyBy%></p>
           <p>Number of openings: <%=job.numberOfOpenings%></p>
           <p>
-            <%if(applicants) {%>
-            <a href="/jobs/<%=job.id%>/applicants" class="btn btn-secondary"
-              >Applicants : <%=applicants%>
+            <%if(applicants && isLoggedIn) {%>
+            <a href="/jobs/<%=job.id%>/applicants" class="btn btn-secondary">
+              Applicants : <%=applicants%>
             </a>
             <%} else {%>
-            <a href="#" class="btn btn-secondary">Applicants : <%=applicants%></a>
+            <a class="btn btn-secondary">
+              Applicants : <%=applicants%>
+            </a>
             <%}%>
           </p>
         </div>
@@ -45,7 +49,7 @@
             <div class="modal-content">
               <div class="modal-header">
                 <h5 class="modal-title" id="applyFormCenterTitle">
-                  apply in less than one min
+                  Apply in less than one min
                 </h5>
                 <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
@@ -59,8 +63,7 @@
                     </div>
                     <input type="text" name="name" id="name" class="form-control" placeholder="enter your name"
                       aria-label="enter your name"
-                      aria-describedby="basic-addon1"
-                    />
+                      aria-describedby="basic-addon1"/>
                   </div>
   
                   <div class="input-group mb-3">
@@ -89,7 +92,7 @@
                       aria-describedby="basic-addon4"
                       accept=".pdf, .docx, .doc"/>
                   </div>
-                  <button type="submit" class="btn btn-primary">Submit</button>
+                  <button type="submit" class="btn btn-primary">Apply</button>
                 </form>
               </div>
               <div class="modal-footer">
