@@ -2,7 +2,7 @@ import RecruitersModel from "../models/recruiters.model.js";
 
 class AuthController {
     register(req, res, next) {
-        console.log('Body:', req.body);
+        // console.log('Body:', req.body);
         const { name, email, password } = req.body;
 
         try{
@@ -29,18 +29,17 @@ class AuthController {
         }
     }
 
-    renderLoginPage(req, res, next) {
-        const errorMessage = req.query.error || null;
-        res.render('login', { errorMessage });
-    }
-
     login(req, res, next) {
+        // console.log('Body:', req.body);
         const { email, password } = req.body;
 
-        // Validate user credentials (simulated here)
-        if (email === 'test@example.com' && password === 'password') {
-            req.session.user = { email };
-            return res.redirect('/dashboard');
+        // Find user by email
+        const user = RecruitersModel.findByEmail(email);
+
+        // Validate user credentials
+        if (user && user.password === password) {
+            req.session.user = { email: user.email, name : user.name };
+            return res.redirect('/');
         }
 
         res.status(401).redirect('/?error=Invalid credentials');
@@ -50,9 +49,9 @@ class AuthController {
         req.session.destroy(err => {
             if (err) {
                 console.error('Error logging out:', err);
-                return res.status(500).redirect('/dashboard?error=Logout failed');
+                return res.status(500).redirect('/?error=Logout failed');
             }
-            res.redirect('/?success=Logged out successfully');
+            res.redirect('/');
         });
     }
 }

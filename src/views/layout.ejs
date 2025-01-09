@@ -44,7 +44,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/jobs">Jobs</a>
             </li>
-            <%if(locals.email) {%>
+            <%if(isLoggedIn) {%>
             <li class="nav-item dropdown">
               <a
                 class="nav-link dropdown-toggle"
@@ -53,14 +53,18 @@
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
               >
-                <%=locals.name%>
+                <%=user.name%>
               </a>
 
               <ul class="dropdown-menu">
                 <li>
                   <a class="dropdown-item" href="/newjob">Post new job</a>
                 </li>
-                <li><a class="dropdown-item" href="/logout">Logout</a></li>
+                <li>
+                  <form action="/logout" method="POST">
+                    <button type="submit" class="dropdown-item">Logout</button>
+                  </form>
+                </li>
               </ul>
             </li>
             <%}%>

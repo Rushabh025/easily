@@ -2,6 +2,7 @@ import express from 'express';
 import path from 'path';
 import expressEjsLayouts from 'express-ejs-layouts';
 import session from 'express-session';
+import { checkAuth } from './src/middlewares/auth.middleware.js';
 import AuthController from './src/controllers/auth.controller.js';
 import jobsRoutes from './src/routes/jobs.routes.js';
 
@@ -26,7 +27,7 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(path.resolve(), 'src', 'views'));
 
 // default request page
-app.get('/', (req, res) => {
+app.get('/', checkAuth ,(req, res) => {
     const errorMessage = req.query.errorMessage || null;
     const success = req.query.success || null; // success can be true/false based on your logic
     res.render('landing', { errorMessage, success });
