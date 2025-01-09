@@ -17,7 +17,33 @@ class JobsController {
   }
 
   createJob(req, res, next){
+    const { companyName, jobCategory, jobDesignation, jobLocation, salary, applyBy, skillsReq, numberOfOpenings } = req.body;
+    var today = new Date();
+    var dd = String(today.getDate()).padStart(2, '0');
+    var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    var yyyy = today.getFullYear();
+    var jobPosted = mm + '/' + dd + '/' + yyyy;
 
+    var applicants = 0;
+    const errorMessage = req.query.errorMessage || null;
+
+    // Proceed to save the applicant details
+    const jobData = {
+      companyName, 
+      jobCategory, 
+      jobDesignation, 
+      jobLocation, 
+      salary, 
+      applyBy, 
+      skillsReq, 
+      numberOfOpenings, 
+      jobPosted, 
+      applicants
+    };
+
+    JobModel.add(jobData);
+
+    res.render('new-job', {errorMessage});
   }
 
   getJobById(req, res, next){

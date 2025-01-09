@@ -23,13 +23,14 @@ export default class JobModel {
     }
 
     static add(jobObj) {
+        console.log(jobObj);
         let newJob = new JobModel(
             jobs.length + 1,
             jobObj.id,
             jobObj.companyName,
             jobObj.jobCategory,
             jobObj.jobDesignation,
-            // jobObj.jobLocation,
+            jobObj.jobLocation,
             jobObj.salary,
             jobObj.applyby,
             jobObj.skillsReq,

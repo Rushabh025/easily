@@ -52,7 +52,9 @@
 
               <ul class="dropdown-menu">
                 <li>
-                  <a class="dropdown-item" href="/newjob">Post new job</a>
+                  <form action="/jobs" method="POST">
+                    <button type="submit" class="dropdown-item">Post new job</button>
+                  </form>
                 </li>
                 <li>
                   <form action="/logout" method="POST">

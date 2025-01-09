@@ -6,12 +6,7 @@
       <form action="/jobs" method="post">
         <h1 class="mt-4 mb-4">Post a new Job</h1>
         <div class="mb-3">
-          <select
-            class="form-select"
-            name="jobCategory"
-            id="jobCategory"
-            aria-label="select job category"
-          >
+          <select class="form-select" name="jobCategory" id="jobCategory" aria-label="select job category">
             <option selected>select job category</option>
             <option value="Tech">Tech</option>
             <option value="Non tech">Non tech</option>
@@ -19,12 +14,7 @@
         </div>
     
         <div class="mb-3">
-          <select
-            class="form-select"
-            name="jobDesignation"
-            id="jobDesignation"
-            aria-label="select job designation"
-          >
+          <select class="form-select" name="jobDesignation" id="jobDesignation" aria-label="select job designation" >
             <option selected>select job designation</option>
             <option value="HR">HR</option>
             <option value="SDE">SDE</option>
@@ -39,55 +29,22 @@
     
         <div class="mb-3">
           <label for="jobLocation" class="form-label">Enter Job Location</label>
-          <input
-            type="text"
-            class="form-control"
-            id="jobLocation"
-            name="jobLocation"
-          />
+          <input type="text" class="form-control" id="jobLocation" name="jobLocation" />
         </div>
     
         <div class="mb-3 input-group">
-          <span class="input-group-text" id="companyName-wrapping"
-            >Company's Name</span
-          >
-          <input
-            type="text"
-            class="form-control"
-            name="companyName"
-            id="companyName"
-            aria-describedby="companyName-wrapping"
-          />
+          <span class="input-group-text" id="companyName-wrapping">Company's Name</span>
+          <input type="text" class="form-control" name="companyName" id="companyName" aria-describedby="companyName-wrapping"/>
         </div>
     
         <div class="input-group mb-3">
-          <input
-            type="number"
-            class="form-control"
-            name="salary"
-            id="salary"
-            placeholder="enter salary"
-            aria-label="enter salary"
-          />
+          <input type="number" class="form-control" name="salary" id="salary" placeholder="enter salary" aria-label="enter salary"/>
           <span class="input-group-text">Total Positions</span>
-          <input
-            type="number"
-            class="form-control"
-            name="numberOfOpenings"
-            id="numberOfOpenings"
-            placeholder="total no. of openings"
-            aria-label="total no. of openings"
-          />
+          <input type="number" class="form-control" name="numberOfOpenings" id="numberOfOpenings" placeholder="total no. of openings" aria-label="total no. of openings"/>
         </div>
     
         <div class="input-group mb-3">
-          <select
-            class="form-select"
-            multiple
-            name="skillsReq"
-            id="skillsReq"
-            aria-label="select skills required for this job"
-          >
+          <select class="form-select" multiple name="skillsReq" id="skillsReq" aria-label="select skills required for this job">
             <option selected>select skills required for this job</option>
             <option value="React">React</option>
             <option value="Node">Node</option>
