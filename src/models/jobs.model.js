@@ -23,7 +23,7 @@ export default class JobModel {
     }
 
     static add(jobObj) {
-        console.log(jobObj);
+        // console.log(jobObj);
         let newJob = new JobModel(
             jobs.length + 1,
             jobObj.id,
@@ -39,6 +39,57 @@ export default class JobModel {
             jobObj.applicants
         );
         jobs.push(newJob);
+    }
+
+    static updateJob(id, jobData){
+        var job = jobs.find(job => job.id === parseInt(id,10));
+        if (!job) {
+            return res.status(404).send('Job not found');
+        }
+
+        const { companyName, 
+            jobCategory, 
+            jobDesignation, 
+            jobLocation, 
+            salary, 
+            applyBy, 
+            skillsReq, 
+            numberOfOpenings, 
+            jobPosted, 
+            applicants } = jobData;
+        
+        job.companyName = companyName || job.companyName;
+        job.jobCategory = jobCategory || job.jobCategory;
+        job.jobDesignation = jobDesignation || job.jobDesignation;
+        job.jobLocation = jobLocation || job.jobLocation;
+        job.salary = salary || job.salary;
+        job.applyby = applyBy || job.applyby;
+
+        // Handle skillsReq - only update if new values are provided
+        if (skillsReq && skillsReq.length > 0) {
+            job.skillsReq = skillsReq; // Update skillsReq with new values if provided
+        }
+
+        job.numberOfOpenings = numberOfOpenings || job.numberOfOpenings;
+        job.jobPosted = jobPosted || job.jobPosted;
+        job.applicants = applicants || job.applicants;
+        
+        return job;  // Return the updated job
+    }
+
+
+    static deleteJob(id) {
+        // Find the index of the job by its ID
+        const jobIndex = jobs.findIndex(job => job.id === parseInt(id, 10));
+
+        // If the job doesn't exist, return false
+        if (jobIndex === -1) {
+            return false;
+        }
+
+        // Remove the job from the array
+        jobs.splice(jobIndex, 1);
+        return true;  // Return true if job was deleted
     }
 }
 

@@ -53,16 +53,87 @@ class JobsController {
     res.render('job-details', { job, applicants });
   }
 
-  updateJobById(req, res, next){
+  updateJobById(req, res, next) {
+    const id = req.params.id;
+    const {
+        companyName, jobCategory, jobDesignation, jobLocation, salary, applyBy,
+        skillsReq, numberOfOpenings, jobPosted, applicants
+    } = req.body;
+
+    // Find the existing job by ID
+    const existingJob = JobModel.getJob(id); // Assumes you have a method to get a job by ID
+    if (!existingJob) {
+        return res.status(404).send("Job not found.");
+    }
+
+    // Prepare updated fields only
+    const updatedData = {};
+
+    if (companyName) updatedData.companyName = companyName;
+    if (jobCategory) updatedData.jobCategory = jobCategory;
+    if (jobDesignation) updatedData.jobDesignation = jobDesignation;
+    if (jobLocation) updatedData.jobLocation = jobLocation;
+    if (salary) updatedData.salary = parseFloat(salary); // Ensure salary is a number
+    if (applyBy) updatedData.applyBy = applyBy;
     
+    // Filter out the default placeholder "select skills required for this job" from the current skills array
+    const currentSkills = existingJob.skillsReq.filter(skill => skill !== "select skills required for this job");
+
+    // Handle skillsReq update or retain the old skills
+    if (skillsReq) {
+        // If skills are provided, split them and filter out the placeholder
+        const parsedSkills = Array.isArray(skillsReq)
+            ? skillsReq
+            : skillsReq.split(',').map(skill => skill.trim());
+
+        updatedData.skillsReq = parsedSkills.filter(skill => skill !== "select skills required for this job");
+    } else {
+        // If no skills are updated, retain the existing skills, but remove the default placeholder if it exists
+        updatedData.skillsReq = currentSkills;
+    }
+
+    if (numberOfOpenings) updatedData.numberOfOpenings = parseInt(numberOfOpenings, 10);
+    if (jobPosted) updatedData.jobPosted = jobPosted;
+    if (applicants) updatedData.applicants = applicants;
+
+    // Merge existing job with updated fields
+    const updatedJob = { ...existingJob, ...updatedData };
+
+    // console.log(updatedJob);
+
+    // Update the job in the model
+    const success = JobModel.updateJob(id, updatedJob);
+    if (!success) {
+        return res.status(500).send("Failed to update the job.");
+    }
+
+    res.redirect('/jobs');
   }
 
+
   deleteJobById(req, res, next){
-    
+    const id = parseInt(req.params.id, 10); // Get job ID from URL parameter
+
+    // Call the model to delete the job
+    const isDeleted = JobModel.deleteJob(id);
+
+    if (!isDeleted) {
+      // If job was not found, send a 404 response
+      return res.status(404).send('Job not found.');
+    }
+
+    // If deletion is successful, send a success response
+    res.redirect('/jobs?success=Deleted successfully');
+
   }
 
   renderUpdateForm(req, res, next){
-    
+    const errorMessage = req.query.errorMessage || null;
+    var id = parseInt(req.params.id, 10)
+    // console.log(id);
+    var job = JobModel.getJob(id);
+    // console.log(job);
+    res.render('update-job', { errorMessage, job });
   }
 
   applyToJob(req, res, next){
