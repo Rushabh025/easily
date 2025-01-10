@@ -13,7 +13,7 @@ export default class ApplicantModel{
     }
 
     static addApplicant(applicant){
-        console.log(applicant);
+        // console.log(applicant);
 
         // Create a new ApplicantModel instance
         const newApplicant = new ApplicantModel(
@@ -28,6 +28,10 @@ export default class ApplicantModel{
         return newApplicant;
     }
 
+    static getAllApplicants(){
+        return applicants;
+    }
+
 }
 
 let applicants = [
@@ -36,6 +40,6 @@ let applicants = [
         "John Doe", 
         "johndoe@example.com", 
         "123-456-7890", 
-        "/resumes/johndoe.pdf"
+        "/johndoe.pdf"
     )
 ];

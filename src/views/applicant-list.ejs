@@ -9,13 +9,13 @@
       </tr>
     </thead>
     <tbody>
-      <%applicants.forEach((a) => {%>
+      <%applicants.forEach((applicant) => {%>
       <tr>
-        <th scope="row"><%=a.id%></th>
-        <td><%=a.name%></td>
-        <td><%=a.email%></td>
-        <td><%=a.contact%></td>
-        <td><a href="/<%=a.resume%>" target="_blank">View</a></td>
+        <th scope="row"><%=applicant.applicantId%></th>
+        <td><%=applicant.name%></td>
+        <td><%=applicant.email%></td>
+        <td><%=applicant.contact%></td>
+        <td><a href="/resumes/<%=applicant.resumePath%>" target="_blank">View</a></td>
       </tr>
       <%})%>
     </tbody>

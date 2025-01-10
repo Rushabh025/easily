@@ -44,4 +44,7 @@ app.post('/logout', authController.logout); // Log out the currently logged-in r
 app.use('/jobs', checkAuth, jobsRoutes);
 app.use('/apply', jobsRoutes);
 
+// Serve resumes directory
+app.use('/resumes', express.static(path.join('src', 'resumes')) );
+
 export default app;

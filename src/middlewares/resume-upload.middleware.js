@@ -3,7 +3,7 @@ import path from 'path';
 import fs from 'fs';
 
 // Resolve path relative to the root of the project
-const uploadDir = path.join(process.cwd(), 'src', 'resumes'); // This resolves to 'F:/project/easily/resumes'
+const uploadDir = path.join(process.cwd(), 'src', 'resumes'); // This resolves to 'F:/project/easily/src/resumes'
 
 // Ensure the 'resumes' directory exists or create it if necessary
 if (!fs.existsSync(uploadDir)) {
