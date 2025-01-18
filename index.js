@@ -4,6 +4,7 @@ import expressEjsLayouts from 'express-ejs-layouts';
 import session from 'express-session';
 import { checkAuth } from './src/middlewares/auth.middleware.js';
 import AuthController from './src/controllers/auth.controller.js';
+import errorMiddleware from './src/middlewares/errorMiddleware.js';
 import jobsRoutes from './src/routes/jobs.routes.js';
 
 const app = express();
@@ -12,7 +13,7 @@ const app = express();
 app.use(expressEjsLayouts);
 app.use(express.urlencoded({ extended: true })); // Parse form data
 app.use(express.json()); // Parse JSON payloads
-
+app.use(express.static(path.join(process.cwd(), 'src'))); // Serve static files from the 'src' directory
 app.use(session({
     secret : "12345",
     resave : false,
@@ -46,5 +47,15 @@ app.use('/apply', jobsRoutes);
 
 // Serve resumes directory
 app.use('/resumes', express.static(path.join('src', 'resumes')) );
+
+// Trigger a 404 error for unmatched routes
+app.use((req, res, next) => {
+    const error = new Error('Page not found');
+    error.status = 404;
+    next(error);
+});
+  
+// Centralized error-handling middleware
+app.use(errorMiddleware);
 
 export default app;
