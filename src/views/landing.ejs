@@ -1,30 +1,22 @@
 <% if(errorMessage) {%>
-    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-      <%=errorMessage%>
-      <button
-        type="button"
-        class="btn-close"
-        data-bs-dismiss="alert"
-        aria-label="Close"
-      ></button>
-    </div>
-    <% } %> 
-    <% if(!errorMessage && success) {%>
-    <div class="alert alert-success alert-dismissible fade show" role="alert">
-      User Registered successfully!
-      <button
-        type="button"
-        class="btn-close"
-        data-bs-dismiss="alert"
-        aria-label="Close"
-      ></button>
-    </div>
-    <% } %> 
-    <% if(locals.lastVisit) { %>
-    <div class="alert alert-primary" role="alert">
-      You last visit was on : <%=locals.lastVisit%>
-    </div>
-    <% } %>
+  <div class="alert alert-danger alert-dismissible fade show" role="alert">
+    <%=errorMessage%>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+<% } %> 
+<% if(!errorMessage && success) {%>
+  <div class="alert alert-success alert-dismissible fade show" role="alert">
+    User Registered successfully!
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" ></button>
+  </div>
+<% } %> 
+<% if(locals.lastVisit) { %>
+  <div class="alert alert-primary" role="alert">
+    You last visit was on : <%=locals.lastVisit%>
+  </div>
+<% } %>
+
+  <div class="page-hero d-flex align-items-center justify-content-center" style="height: 80%;">
     <div class="front-page-container">
       <div class="front-page-text-container">
         <h3 class="landing-title">
@@ -34,15 +26,12 @@
         <h5 class="landing-title2">Get Searched. Get Hired</h5>
     
         <a href="/jobs" class="btn btn-primary">I'm a Job Seeker</a>
-        <a href="#"
-          class="btn btn-primary"
-          data-bs-toggle="modal"
-          data-bs-target="#registerModal"
-          >I'm a recruiter</a>
+        <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#registerModal">
+          I'm a recruiter
+        </a>
       </div>
-    
-      <!-- <img src="/front.jpg" class="front-banner" /> -->
     </div>
+  </div>
     
     <div class="modal fade" id="registerModal" tabindex="-1">
       <div class="modal-dialog modal-dialog-centered">
